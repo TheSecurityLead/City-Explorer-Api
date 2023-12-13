@@ -19,9 +19,10 @@ app.get('/weather', (req, res) => {
     return res.status(404).send('City not found');
   }
 
-  // Add logic to process the found city data
-  // For example, format the data and send it back to the client
+   const forecasts = cityData.weather.map(day => new Forecast(day.date, day.description));
+  res.json(forecasts); // Sending the array back to the client
 });
+
 
 
 app.get('/', (req, res) => res.send('Hello World!'));
