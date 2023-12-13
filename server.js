@@ -24,6 +24,11 @@ app.get('/weather', (req, res) => {
   res.json(forecasts); 
 });
 
+app.use((err, req, res, next) => {
+  console.error(err); // Log the error for server-side debugging
+  res.status(500).send({ error: "Something went wrong." });
+});
+
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
