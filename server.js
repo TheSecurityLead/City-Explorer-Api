@@ -4,12 +4,13 @@ const app = express();
 const Forecast = require('./Forecast'); 
 const port = 3000;
 
-
-
-
 let rawdata = fs.readFileSync('weather.json');
 let weatherData = JSON.parse(rawdata);
 
+app.use((err, req, res, next) => {
+  console.error(err); // Log the error for server-side debugging
+  res.status(500).send({ error: "Something went wrong." });
+});
 
 app.get('/weather', (req, res) => {
   const { lat, lon, searchQuery } = req.query;
@@ -20,14 +21,11 @@ app.get('/weather', (req, res) => {
   }
 
    const forecasts = cityData.weather.map(day => new Forecast(day.date, day.description));
-  res.json(forecasts); // Sending the array back to the client
+  res.json(forecasts); 
 });
-
-
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
-// Additional routes and logic can be added below
+
