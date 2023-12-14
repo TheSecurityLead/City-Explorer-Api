@@ -2,7 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const Forecast = require('./Forecast'); 
-const port = 3000;
 const cors = require('cors');
 const port = process.env.PORT || 3000;
 app.use(cors());
